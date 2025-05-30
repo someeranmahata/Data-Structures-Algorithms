@@ -1,12 +1,12 @@
 public class stackLinkedListImplementation {
-    public class Node{
+    public static class Node{
         int val;
         Node next;
         Node(int val){
             this.val = val;
         }
     }
-    public class stackLL{
+    public static class stackLL{
         private Node head = null;
         private int size = 0;
 
@@ -26,20 +26,36 @@ public class stackLinkedListImplementation {
             Node temp = head;
             head = head.next;
             size--;
+            System.out.println(temp.val);
             return temp.val;
         }
         //display
         void display(){
-            if(isEmpty())
+            if(isEmpty()){
+                System.out.println("Stack under flow");
                 return;
-            while(head != null){
-               System.out.print(head.val + " ");
+            }
+            Node temp = head;
+            while(temp != null){
+               System.out.print(temp.val + " ");
+               temp = temp.next;
             }
             System.out.println();
         }
         boolean isEmpty(){
             return size == 0;
         }
+
+    }
+    public static void main(String [] ags){
+        stackLL stack = new stackLL();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.display();
+        stack.pop();
+        stack.display();
+
 
     }
 }
