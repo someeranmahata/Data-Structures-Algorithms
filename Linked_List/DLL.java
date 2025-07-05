@@ -12,7 +12,7 @@ public class DLL {
     private static Node head = null;
     private static Node tail = null;
 
-     public static void insert(int val){
+    public static void insert(int val){
          Node temp = new Node(val);
          if(head == null){
              head = temp;

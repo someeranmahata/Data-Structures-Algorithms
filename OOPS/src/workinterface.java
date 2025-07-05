@@ -5,6 +5,7 @@ interface Flyable{
 }
 interface Swimmable{
     void swim();
+    void fly();
 }
 class Duck implements Flyable, Swimmable{
     String name;
