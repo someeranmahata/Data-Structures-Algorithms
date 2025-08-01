@@ -1,6 +1,6 @@
 import java.util.Scanner;
-class practice{
-    public static int main(String[] args) {
+class Binary_search{
+    public static void main(String[] args) {
         //Binary Search
         Scanner inp = new Scanner(System.in);
         int[] arr = new int[10];
@@ -24,20 +24,18 @@ class practice{
         while(arr[mid] < arr[last]) {        //Searching
 
             if (num < arr[mid]){
-                last = mid;
+                last = mid - 1;
             }
             else if (num > arr[mid]){
-                start = mid;
+                start = mid + 1;
             }
             else{
-                result = mid;
                 break;
                 }
             mid = (last + start) / 2;    
         }
-        System.out.println("The index of the number is:");
-        return result;
-
+        System.out.println("The index of the number is:" + mid);
+        
 
     }
 }
