@@ -1,0 +1,15 @@
+
+| Situation                         | Best Choice        |
+| --------------------------------- | ------------------ |
+| Fixed size, index access          | Array              |
+| Dynamic size, index access        | ArrayList          |
+| Frequent middle insert/delete     | LinkedList         |
+| LIFO stack                        | Stack / Deque      |
+| FIFO queue                        | Queue / ArrayDeque |
+| Min/Max retrieval                 | PriorityQueue      |
+| Key-value (unordered)             | HashMap            |
+| Key-value (insertion order)       | LinkedHashMap      |
+| Key-value (sorted keys)           | TreeMap            |
+| Unique elements (unordered)       | HashSet            |
+| Unique elements (insertion order) | LinkedHashSet      |
+| Unique elements (sorted)          | TreeSet            |
