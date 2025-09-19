@@ -27,7 +27,7 @@ public class TestRunner {
         }
 
         return testCases;
-    }
+    }   
 
     public static void main(String[] args) throws Exception {
         List<TestCase> testCases = readTestCases("testcases.txt");

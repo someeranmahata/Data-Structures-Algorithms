@@ -13,3 +13,10 @@
 | Unique elements (unordered)       | HashSet            |
 | Unique elements (insertion order) | LinkedHashSet      |
 | Unique elements (sorted)          | TreeSet            |
+
+//TO FIND THE MAXIMUM SUBARRAY SUM
+
+* If you want to find the subarray with maximum sum value
+  where A[i] can be both -ve and +ve 
+  Iterate through the array while doing sum, and set cursum = 0 when sum started coming -ve
+  And store the maximum value everytime

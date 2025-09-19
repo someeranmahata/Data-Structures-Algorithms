@@ -1,40 +1,88 @@
 import java.util.*;
 public class B{
 	public static void main(String[] args){
-		Scanner sc = new Scanner(System.in);
- 
-        StringBuilder st = new StringBuilder();
-        int t = sc.nextInt();
-        for(int x = 0; x < t; x++){
-            long n = sc.nextLong();
- 
-            boolean even = n % 2 == 0? true : false;
- 
-            long countodd = even? n/2 : n/2 + 1;
-            countodd = -1 * countodd;
-            
-            long[] ar = new long[(int)n/2];
- 
-            while(countodd <= 0){
-                for(int i = 0; i < ar.length; i++){
-                    ar[i] += 1;
-                    countodd++;
-                    if(countodd > 0)
-                        break;
-                }
-            }
-            Arrays.sort(ar);
-            int ind = 0;
+
+	}
+    class FoodRatings {
+
+        /*
+        storing cuisine name as key and foodname with there rating as the values
+        using treeMap to store the value of foods : rating
+        */
+        HashMap<String , String> map = new HashMap<>(); //food - cuisine
+        HashMap<String, TreeMap<Integer, List<String>>> food_ratedfoods = new HashMap<>(); //storing place -  (Rating, Sorted list of food name of that rating)
+        HashMap<String, Integer> foodrating = new HashMap<>();
+        public FoodRatings(String[] foods, String[] cuisines, int[] ratings) {
+
+            int n = foods.length;
             for(int i = 0; i < n; i++){
-                if(i % 2 != 0){
-                    st.append(ar[ind++] + " ");
+                map.put(foods[i], cuisines[i]);
+                foodrating.put(foods[i], ratings[i]);
+
+                if(food_ratedfoods.containsKey(cuisines[i])){
+                    TreeMap<Integer, List<String>> temp = food_ratedfoods.get(cuisines[i]);
+                    if(temp.containsKey(ratings[i])){
+                        List<String> list = temp.get(ratings[i]);
+                        list.add(foods[i]);
+                        Collections.sort(list);
+                        temp.put(ratings[i], list);
+                        food_ratedfoods.put(cuisines[i], temp);
+                    }
+                    else{
+                        List<String> list = new ArrayList<>();
+                        list.add(foods[i]);
+                        temp.put(ratings[i], list);
+                        food_ratedfoods.put(cuisines[i], temp);
+                    }
                 }
                 else{
-                    st.append(-1 + " ");
+                    TreeMap<Integer, List<String>> temp = new TreeMap<>();
+                    List<String> list = new ArrayList<>();
+                    list.add(foods[i]);
+                    temp.put(ratings[i], list);
+                    food_ratedfoods.put(cuisines[i], temp);
                 }
-            }            
-            st.append("\n");
+            }
+
         }
-        System.out.println(st);
-	}
+
+        public void changeRating(String food, int newRating) {
+            String place = map.get(food);
+            TreeMap<Integer , List<String>> temp = food_ratedfoods.get(place); // contains rating with food names in sorted way
+
+            int lastrating = foodrating.get(food);
+            foodrating.put(food, newRating);
+
+            //fetching ans removing the food from its last rating key
+            List<String>  list= temp.get(lastrating);
+            list.remove(food);
+            Collections.sort(list);
+
+            temp.put(lastrating, list);
+
+            //adding the food into new rating key if present
+            if(temp.containsKey(newRating)){
+                List<String> temp2 = temp.get(newRating);
+                temp2.add(food);
+                Collections.sort(list);
+                temp.put(newRating, temp2);
+            }
+            else{
+                List<String> foodname = new ArrayList<>();
+                foodname.add(food);
+                temp.put(newRating, foodname);
+            }
+            food_ratedfoods.put(food, temp);
+
+        }
+
+        public String highestRated(String cuisine) {
+            TreeMap<Integer, List<String>> tempmap = food_ratedfoods.get(cuisine);
+            int top = tempmap.lastKey();
+            List<String> list = tempmap.get(top);
+            Collections.sort(list);
+            return list.get(list.size()-1);
+        }
+    }
+
 }
