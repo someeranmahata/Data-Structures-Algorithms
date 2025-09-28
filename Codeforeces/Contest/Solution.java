@@ -10,25 +10,49 @@ import java.io.*;
 public class Solution{
 
     static int mod = 1_000_000_007;
-    // static Boolean dp[] = new Boolean[1_000_000_001];
+    // GRAY CODE = i ^ (i >> 1)
+    // way to find whether a number is (n & (n - 1)) == 0
 
     public static void main(String[] args) throws java.lang.Exception{
         FastScanner sc = new FastScanner(System.in);
         StringBuilder st = new StringBuilder();
 
-        int t  = sc.nextInt();
-        int[] ar = new int[t];
-        for(int i = 0; i < t; i++){
-            ar[i] = sc.nextInt();
+
+
+        int t = sc.nextInt();
+        for(int z = 0; z < t; z++){
+
+
+
         }
-        System.out.println(ternarySearch(ar, sc.nextInt()));
         System.out.println(st);
+    }
+    //METHODS
 
 
-        
+    static long gcd(long a, long b) {
+        while (b != 0) {
+            long temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+    static long gcdList(long[] ar){
+        if(ar.length == 1)
+            return ar[0];
+
+        Arrays.sort(ar);
+        long cur = ar[ar.length - 1];
+        for(int i = ar.length - 2; i >= 1 && cur != 1; i--){
+            cur = gcd(ar[i], cur);
+        }
+        return cur;
+    }
+    static long lcm(long a, long b) {
+        return a / gcd(a, b) * b;
     }
 
-    //METHODS
     static int ternarySearch(int[] ar, int num){
         int st = 0;
         int end = ar.length - 1;
@@ -67,18 +91,7 @@ public class Solution{
         }
         return -1;
     }
-    static long lcm(long a, long b) {
-        return a / gcd(a, b) * b;
-    }
 
-    static long gcd(long a, long b) {
-        while (b != 0) {
-            long temp = b;
-            b = a % b;
-            a = temp;
-        }
-        return a;
-    }
     static long MEX(List<Long> list){
         long min = 0;
         while(true){
@@ -126,14 +139,14 @@ public class Solution{
         private final BufferedReader br;
         private StringTokenizer st;
 
-        FastScanner(InputStream sc) {
-            br = new BufferedReader(new InputStreamReader(sc));
+        FastScanner(InputStream in) {
+            br = new BufferedReader(new InputStreamReader(in));
         }
 
         String next() throws IOException {
-            while (st == null || !st.hasMoreElements()) {
+            while (st == null || !st.hasMoreTokens()) {
                 String line = br.readLine();
-                if (line == null) return null;
+                if (line == null) throw new EOFException("No more tokens available");
                 st = new StringTokenizer(line);
             }
             return st.nextToken();
