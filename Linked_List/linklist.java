@@ -158,4 +158,5 @@ public class linklist {
             System.out.println("pt1,pt2" + pt1.val + "," + pt2.val);
         }
     }
+
 }

@@ -1,88 +1,174 @@
 import java.util.*;
-public class B{
-	public static void main(String[] args){
+import java.lang.*;
+import java.io.*;
 
-	}
-    class FoodRatings {
+public class B{
+
+    static int mod = 1_000_000_007;
+    // GRAY CODE = i ^ (i >> 1)
+    // way to find whether a number is power of 2 (n & (n - 1)) == 0
+
+    public static void main(String[] args) throws java.lang.Exception{
+        FastScanner sc = new FastScanner(System.in);
+        StringBuilder st = new StringBuilder();
 
         /*
-        storing cuisine name as key and foodname with there rating as the values
-        using treeMap to store the value of foods : rating
-        */
-        HashMap<String , String> map = new HashMap<>(); //food - cuisine
-        HashMap<String, TreeMap<Integer, List<String>>> food_ratedfoods = new HashMap<>(); //storing place -  (Rating, Sorted list of food name of that rating)
-        HashMap<String, Integer> foodrating = new HashMap<>();
-        public FoodRatings(String[] foods, String[] cuisines, int[] ratings) {
+        * . --> white cells
+        *  # --> black cells
+        *  */
 
-            int n = foods.length;
+        int test = sc.nextInt();
+        while(test-- > 0){
+
+            int n = sc.nextInt();
+            char[][] grid = new char[n][n];
+
+            boolean check = false;
+
             for(int i = 0; i < n; i++){
-                map.put(foods[i], cuisines[i]);
-                foodrating.put(foods[i], ratings[i]);
+                String temp = sc.next();
 
-                if(food_ratedfoods.containsKey(cuisines[i])){
-                    TreeMap<Integer, List<String>> temp = food_ratedfoods.get(cuisines[i]);
-                    if(temp.containsKey(ratings[i])){
-                        List<String> list = temp.get(ratings[i]);
-                        list.add(foods[i]);
-                        Collections.sort(list);
-                        temp.put(ratings[i], list);
-                        food_ratedfoods.put(cuisines[i], temp);
-                    }
-                    else{
-                        List<String> list = new ArrayList<>();
-                        list.add(foods[i]);
-                        temp.put(ratings[i], list);
-                        food_ratedfoods.put(cuisines[i], temp);
-                    }
-                }
-                else{
-                    TreeMap<Integer, List<String>> temp = new TreeMap<>();
-                    List<String> list = new ArrayList<>();
-                    list.add(foods[i]);
-                    temp.put(ratings[i], list);
-                    food_ratedfoods.put(cuisines[i], temp);
-                }
+                if(temp.contains("###"))
+                    check = true;
+
+                grid[i] = temp.toCharArray();
             }
+            if(check){
+                st.append("NO").append("\n");
+                continue;
+            }
+
+
 
         }
 
-        public void changeRating(String food, int newRating) {
-            String place = map.get(food);
-            TreeMap<Integer , List<String>> temp = food_ratedfoods.get(place); // contains rating with food names in sorted way
+        System.out.println(st);
 
-            int lastrating = foodrating.get(food);
-            foodrating.put(food, newRating);
+    }
 
-            //fetching ans removing the food from its last rating key
-            List<String>  list= temp.get(lastrating);
-            list.remove(food);
-            Collections.sort(list);
+    //METHODS
+    static long areaOfTriangle(
+            long x1, long y1,
+            long x2, long y2,
+            long x3, long y3) {
 
-            temp.put(lastrating, list);
+        long determinant = x1 * (y2 - y3)
+                + x2 * (y3 - y1)
+                + x3 * (y1 - y2);
 
-            //adding the food into new rating key if present
-            if(temp.containsKey(newRating)){
-                List<String> temp2 = temp.get(newRating);
-                temp2.add(food);
-                Collections.sort(list);
-                temp.put(newRating, temp2);
-            }
-            else{
-                List<String> foodname = new ArrayList<>();
-                foodname.add(food);
-                temp.put(newRating, foodname);
-            }
-            food_ratedfoods.put(food, temp);
+        return (long)(Math.abs(determinant));
+    }
 
+    static long gcd(long a, long b) {
+        while (b != 0) {
+            long temp = b;
+            b = a % b;
+            a = temp;
         }
+        return a;
+    }
+    static long gcdList(long[] ar){
+        if(ar.length == 1)
+            return ar[0];
 
-        public String highestRated(String cuisine) {
-            TreeMap<Integer, List<String>> tempmap = food_ratedfoods.get(cuisine);
-            int top = tempmap.lastKey();
-            List<String> list = tempmap.get(top);
-            Collections.sort(list);
-            return list.get(list.size()-1);
+        Arrays.sort(ar);
+        long cur = ar[ar.length - 1];
+        for(int i = ar.length - 2; i >= 1 && cur != 1; i--){
+            cur = gcd(ar[i], cur);
+        }
+        return cur;
+    }
+
+    static long lcm(long a, long b) {
+        return a / gcd(a, b) * b;
+    }
+
+    static long MEX(List<Long> list){
+        long min = 0;
+        HashSet<Long> set = new HashSet<>(list); // O(1) lookup
+        while(true){
+            if(set.contains(min)) min++;
+            else return min;
         }
     }
 
+    static void swap(int[] a, int[] b, int i, int j){
+        a[i] = a[i] + b[j];
+        b[j] = a[i] - b[j];
+        a[i] = a[i] - b[j];
+    }
+
+    static void swap(int[] a, int i, int j){
+        a[i] = a[i] + a[j];
+        a[j] = a[i] - a[j];
+        a[i] = a[i] - a[j];
+    }
+
+    static boolean prime(long x){
+        if(x == 1)
+            return false;
+        else if(x < 3)
+            return true;
+        for(long i = 2; i <= Math.sqrt(x); i++){
+            if(x % i == 0)
+                return false;
+        }
+        return true;
+    }
+
+    static int binarySearch(long[] ar, long target){
+        int left = 0, right = ar.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (ar[mid] == target)
+                return mid;
+            else if (ar[mid] < target)
+                left = mid + 1;
+            else
+                right = mid - 1;
+
+        }
+        return -1;
+    }
+    static StringBuilder testcaseGenerator(int n, long bound){
+        StringBuilder st = new StringBuilder();
+        Random rand = new Random();
+
+        for(int i = 0; i < n; i++){
+            if(i == n - 1){
+                st.append(rand.nextLong(bound));
+                continue;
+            }
+            st.append(rand.nextLong(bound) + ", ");
+        }
+        return st;
+    }
+
+    static class FastScanner {
+        private final BufferedReader br;
+        private StringTokenizer st;
+
+        FastScanner(InputStream in) {
+            br = new BufferedReader(new InputStreamReader(in));
+        }
+
+        String next() throws IOException {
+            while (st == null || !st.hasMoreTokens()) {
+                String line = br.readLine();
+                if (line == null) throw new EOFException("No more tokens available");
+                st = new StringTokenizer(line);
+            }
+            return st.nextToken();
+        }
+
+        int nextInt() throws IOException {
+            return Integer.parseInt(next());
+        }
+
+        long nextLong() throws IOException {
+            return Long.parseLong(next());
+        }
+    }
 }

@@ -1,34 +1,48 @@
-import java.sql.Array;
 import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-/*
-    to compare codes sc codeforces
-    https://codeforces.com/contest/2104/submission/335103189?compareWith=335102843
-*/
-public class Solution{
+public class Solution {
 
     static int mod = 1_000_000_007;
     // GRAY CODE = i ^ (i >> 1)
-    // way to find whether a number is (n & (n - 1)) == 0
+    // way to find whether a number is power of 2 (n & (n - 1)) == 0
 
     public static void main(String[] args) throws java.lang.Exception{
         FastScanner sc = new FastScanner(System.in);
         StringBuilder st = new StringBuilder();
 
+        /*
+        * div 1 all rated
+        * div 2 rated for those with rating strictly less than X
+        * we can change the rating between the range of [r - d, r + d]
+        * */
 
+        int test = sc.nextInt();
+        while(test-- > 0){
 
-        int t = sc.nextInt();
-        for(int z = 0; z < t; z++){
-
-
+            
 
         }
-        System.out.println(st);
-    }
-    //METHODS
 
+
+        System.out.println(st);
+
+    }
+    
+
+    //METHODS
+    static long areaOfTriangle(
+            long x1, long y1,
+            long x2, long y2,
+            long x3, long y3) {
+
+        long determinant = x1 * (y2 - y3)
+                + x2 * (y3 - y1)
+                + x3 * (y1 - y2);
+
+        return (long)(Math.abs(determinant));
+    }
 
     static long gcd(long a, long b) {
         while (b != 0) {
@@ -49,61 +63,30 @@ public class Solution{
         }
         return cur;
     }
+
     static long lcm(long a, long b) {
         return a / gcd(a, b) * b;
     }
 
-    static int ternarySearch(int[] ar, int num){
-        int st = 0;
-        int end = ar.length - 1;
-        int mid_left = 0;
-        int mid_right = ar.length - 1;
-        while(st <= end){
-
-            if(end - st + 1 < 3){
-                if(ar[st] == num)
-                    return st;
-                else if(ar[end] == num)
-                    return end;
-                else
-                    return -1;
-            }
-            mid_left = (st + end)/3;
-            mid_right = (mid_left + end)/2;
-            if(ar[mid_left] == num)
-                return mid_left;
-            if(ar[mid_right] == num)
-                return mid_right;
-            if(num < ar[mid_left]){
-                end = mid_left - 1;
-            }
-            else if(num > ar[mid_right]){
-                st = mid_right + 1;
-            }
-            else if(num > ar[mid_left]){
-                st = mid_left + 1;
-                if(num < ar[mid_right]){
-                    end = mid_right - 1;
-                }
-            }
-
-
-        }
-        return -1;
-    }
-
     static long MEX(List<Long> list){
         long min = 0;
+        HashSet<Long> set = new HashSet<>(list); // O(1) lookup
         while(true){
-            if(list.contains(min)) min++;
-            else
-                return min;
+            if(set.contains(min)) min++;
+            else return min;
         }
     }
+
     static void swap(int[] a, int[] b, int i, int j){
         a[i] = a[i] + b[j];
         b[j] = a[i] - b[j];
         a[i] = a[i] - b[j];
+    }
+
+    static void swap(int[] a, int i, int j){
+        a[i] = a[i] + a[j];
+        a[j] = a[i] - a[j];
+        a[i] = a[i] - a[j];
     }
 
     static boolean prime(long x){
@@ -133,6 +116,19 @@ public class Solution{
 
         }
         return -1;
+    }
+    static StringBuilder testcaseGenerator(int n, long bound){
+        StringBuilder st = new StringBuilder();
+        Random rand = new Random();
+
+        for(int i = 0; i < n; i++){
+            if(i == n - 1){
+                st.append(rand.nextLong(bound));
+                continue;
+            }
+            st.append(rand.nextLong(bound) + ", ");
+        }
+        return st;
     }
 
     static class FastScanner {
