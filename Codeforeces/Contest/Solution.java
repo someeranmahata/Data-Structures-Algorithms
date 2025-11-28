@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 import java.lang.*;
 import java.io.*;
@@ -13,23 +14,30 @@ public class Solution {
         StringBuilder st = new StringBuilder();
 
         /*
-        * div 1 all rated
-        * div 2 rated for those with rating strictly less than X
-        * we can change the rating between the range of [r - d, r + d]
+        * finding the suffix sum
         * */
 
-        int test = sc.nextInt();
-        while(test-- > 0){
+//        int test = sc.nextInt();
+//        while(test-- > 0){
+//
+//        }
+        int[][] e = {
+                {9, 5},
+                {4, 9},
+                {5, 8},
+                {3, 6},
+                {8, 6},
+                {0, 1},
+                {9, 0},
+                {6, 2},
+                {3, 7}
+        };
 
-            
 
-        }
+        int[] v =  {10, 14, 12, 4, 12, 1, 8, 36, 12, 11};
 
-
-        System.out.println(st);
-
+        System.out.println(Arrays.toString(st);
     }
-    
 
     //METHODS
     static long areaOfTriangle(

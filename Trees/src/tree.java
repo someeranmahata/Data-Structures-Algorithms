@@ -15,8 +15,8 @@ public class tree{
             return node.val;
         }
     }
-    private Node head;
-    //Method to fetch nodes from tree using bfs
+    private final Node head;
+
     public static void BFS(tree t){
         Node root = t.head;
         if(root == null)
