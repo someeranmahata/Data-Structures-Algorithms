@@ -1,6 +1,6 @@
 
-import com.sun.source.tree.UsesTree;
 
+import javax.swing.*;
 import java.util.*;
 import java.lang.*;
 import java.io.*;
@@ -8,53 +8,35 @@ import java.io.*;
 public class C {
 
     static int mod = 1_000_000_007;
-    // GRAY CODE = i ^ (i >> 1)
-    // way to find whether a number is power of 2 (n & (n - 1)) == 0
 
-    public static void main(String[] args) throws java.lang.Exception{
-        FastScanner sc = new FastScanner(System.in);
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         StringBuilder st = new StringBuilder();
-
-        /**/
 
         int test = sc.nextInt();
         while(test-- > 0){
 
+            int n = sc.nextInt();
+            long[] ar = new long[n];
 
+            for(int i = 0; i < n; i++)
+                ar[i] = sc.nextLong();
 
-        }
+            if(check(ar))
+                st.append(-1).append("\n");
+            else{
 
-
-        System.out.println(st);
-
-    }
-
-
-
-    static class FastScanner {
-        private final BufferedReader br;
-        private StringTokenizer st;
-
-        FastScanner(InputStream in) {
-            br = new BufferedReader(new InputStreamReader(in));
-        }
-
-        String next() throws IOException {
-            while (st == null || !st.hasMoreTokens()) {
-                String line = br.readLine();
-                if (line == null) throw new EOFException("No more tokens available");
-                st = new StringTokenizer(line);
             }
-            return st.nextToken();
         }
 
-        int nextInt() throws IOException {
-            return Integer.parseInt(next());
-        }
-
-        long nextLong() throws IOException {
-            return Long.parseLong(next());
-        }
+        System.out.print(st);
     }
+    static boolean check(long[] ar){
+        long[] temp = ar.clone();
+        Arrays.sort(temp);
+
+        return ar.equals(temp);
+    }
+
 
 }
