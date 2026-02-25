@@ -1,85 +1,215 @@
-
-import com.sun.source.tree.UsesTree;
-
 import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-public class B {
+public class B{
 
     static int mod = 1_000_000_007;
     // GRAY CODE = i ^ (i >> 1)
     // way to find whether a number is power of 2 (n & (n - 1)) == 0
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws java.lang.Exception{
         Scanner sc = new Scanner(System.in);
         StringBuilder st = new StringBuilder();
 
         /*
-         */
+         * */
+
 
         int test = sc.nextInt();
         while(test-- > 0){
 
-            int w = sc.nextInt();
-            int d = sc.nextInt();
-            int temp1 = w;
-            int temp2 = d;
+            int n = sc.nextInt();
 
-            int layer = 0;
-            int turn = 1;
-            int count = 0;
-            while(true){
-                int k = 1 << layer;
-                if(turn == 1){
-                    if(w < k)
-                        break;
-                    w -= k;
-                    count++;
-                    turn = 2;
-                }
-                else{
-                    if(d < k)
-                        break;
-                    d -= k;
-                    count++;
-                    turn = 1;
-                }
-                layer++;
-            }
-            int ans = count;
+            String s = sc.next();
 
-            turn = 2;
-            layer = 0;
-            count = 0;
-            w = temp1;
-            d = temp2;
-            while(true){
-                int k = 1 << layer;
-                if(turn == 1){
-                    if(w < k)
-                        break;
-                    w -= k;
-                    count++;
-                    turn = 2;
-                }
-                else{
-                    if(d < k)
-                        break;
-                    d -= k;
-                    count++;
-                    turn = 1;
-                }
-                layer++;
+            if(s.charAt(0) == 'b' && n % 2 != 0){
+                st.append("NO").append("\n");
+                continue;
             }
 
-            st.append(Math.max(count, ans)).append("\n");
+            StringBuilder temp = new StringBuilder();
+
+            for(int i = 1; i <= n; i++)
+                temp.append(i%2 == 0? 'b' : 'a');
+
+            int l = 0;
+            int r = n - 1;
+            boolean flag = true;
+
+            for(int i = 0; i < n && flag; i++){
+                int count = 0;
+                while(i < n && s.charAt(i) == '?'){
+                    count++;
+                    i++;
+                }
+                if(i >= n)
+                    break;
+                if(count == 0){
+                    if(s.charAt(i) == temp.charAt(l))
+                        l++;
+                    else if(s.charAt(i) == temp.charAt(r))
+                        r--;
+                    else
+                        flag = !flag;
+
+                }
+                else{
+                    if(s.charAt(i) == temp.charAt(l)){
+                        r -= count;
+                        l++;
+                    }
+
+                    else if(s.charAt(i) == temp.charAt(r)){
+                        r--;
+                        l += count;
+                    }
+
+                    else{
+                        if(count % 2 == 0)
+                            flag = false;
+                        else
+                            l += count;
+                    }
+                }
+            }
+            st.append(flag? "YES" : "NO").append("\n");
+
+
 
         }
-
+//        System.out.println("someeran".contains("eeran"));
         System.out.println(st);
-
 
     }
 
+
+    //METHODS
+    static long areaOfTriangle(
+            long x1, long y1,
+            long x2, long y2,
+            long x3, long y3) {
+
+        long determinant = x1 * (y2 - y3)
+                + x2 * (y3 - y1)
+                + x3 * (y1 - y2);
+
+        return (long)(Math.abs(determinant));
+    }
+
+    static long gcd(long a, long b) {
+        while (b != 0) {
+            long temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+    static long gcdList(long[] ar){
+        if(ar.length == 1)
+            return ar[0];
+
+        Arrays.sort(ar);
+        long cur = ar[ar.length - 1];
+        for(int i = ar.length - 2; i >= 1 && cur != 1; i--){
+            cur = gcd(ar[i], cur);
+        }
+        return cur;
+    }
+
+    static long lcm(long a, long b) {
+        return a / gcd(a, b) * b;
+    }
+
+    static long MEX(List<Long> list){
+        long min = 0;
+        HashSet<Long> set = new HashSet<>(list); // O(1) lookup
+        while(true){
+            if(set.contains(min)) min++;
+            else return min;
+        }
+    }
+
+    static void swap(int[] a, int[] b, int i, int j){
+        a[i] = a[i] + b[j];
+        b[j] = a[i] - b[j];
+        a[i] = a[i] - b[j];
+    }
+
+    static void swap(long[] a, int i, int j){
+        a[i] = a[i] + a[j];
+        a[j] = a[i] - a[j];
+        a[i] = a[i] - a[j];
+    }
+
+    static boolean prime(long x){
+        if(x == 1)
+            return false;
+        else if(x < 3)
+            return true;
+        for(long i = 2; i <= Math.sqrt(x); i++){
+            if(x % i == 0)
+                return false;
+        }
+        return true;
+    }
+
+    static int binarySearch(int[] ar, int target){
+        if(ar[target] != 0)
+            return target;
+        int left = 0, right = ar.length - 1;
+        int ind = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (ar[mid] < target){
+                left = mid + 1;
+                if(ar[mid] != 0)
+                    ind = Math.max(ind, mid);
+            }
+            else
+                right = mid - 1;
+
+        }
+        return ind;
+    }
+    static StringBuilder testcaseGenerator(int n, long bound){
+        StringBuilder st = new StringBuilder();
+        Random rand = new Random();
+
+        for(int i = 0; i < n; i++){
+            if(i == n - 1){
+                st.append(rand.nextLong(bound));
+                continue;
+            }
+            st.append(rand.nextLong(bound) + ", ");
+        }
+        return st;
+    }
+
+    static class FastScanner {
+        private final BufferedReader br;
+        private StringTokenizer st;
+
+        FastScanner(InputStream in) {
+            br = new BufferedReader(new InputStreamReader(in));
+        }
+
+        String next() throws IOException {
+            while (st == null || !st.hasMoreTokens()) {
+                String line = br.readLine();
+                if (line == null) throw new EOFException("No more tokens available");
+                st = new StringTokenizer(line);
+            }
+            return st.nextToken();
+        }
+
+        int nextInt() throws IOException {
+            return Integer.parseInt(next());
+        }
+
+        long nextLong() throws IOException {
+            return Long.parseLong(next());
+        }
+    }
 }

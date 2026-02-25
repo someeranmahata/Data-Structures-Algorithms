@@ -1,3 +1,5 @@
+import com.sun.source.tree.UsesTree;
+
 import java.util.*;
 import java.lang.*;
 import java.io.*;
@@ -13,11 +15,40 @@ public class Solution{
         StringBuilder st = new StringBuilder();
 
         /*
-         */
+        * */
+
+
         int test = sc.nextInt();
         while(test-- > 0){
 
+            int n = sc.nextInt();
 
+            String x = sc.next();
+
+            boolean possible = true;
+            int start = 0;
+
+            if (n % 2 != 0) {
+                if (x.charAt(0) == 'b') {
+                    possible = false;
+                }
+                start = 1;
+            }
+
+            if (possible) {
+                for (int i = start; i < n; i += 2) {
+                    char c1 = x.charAt(i);
+                    char c2 = x.charAt(i + 1);
+                    if (c1 != '?' && c1 == c2) {
+                        possible = false;
+                        break;
+                    }
+                }
+            }
+
+
+
+            st.append(possible? "YES" : "NO").append("\n");
 
         }
 
@@ -25,6 +56,32 @@ public class Solution{
 
 
     }
+
+    static double findMaxAverage(int[] nums, int k) {
+
+        double avg = 0;
+        int sum = 0;
+        int i = 0;
+        int j = 0;
+        int n = nums.length;
+
+        while (j < n) {
+            sum += nums[j];
+            if ((j - i + 1) == k + 1) {
+                sum -= nums[i];
+                i++;
+            }
+            if ((j - i + 1) == k) {
+                double temp = sum / k;
+                avg = Math.max(avg, temp);
+            }
+            j++;
+
+        }
+        return avg;
+
+    }
+
 
 
     //METHODS
@@ -79,7 +136,7 @@ public class Solution{
         a[i] = a[i] - b[j];
     }
 
-    static void swap(int[] a, int i, int j){
+    static void swap(long[] a, int i, int j){
         a[i] = a[i] + a[j];
         a[j] = a[i] - a[j];
         a[i] = a[i] - a[j];
