@@ -1,4 +1,3 @@
-import com.sun.source.tree.UsesTree;
 
 import java.util.*;
 import java.lang.*;
@@ -17,30 +16,51 @@ public class Solution{
         StringBuilder st = new StringBuilder();
 
         /*
-        *  */
+        * game ends when all the character in the string becomes  1
+        * cos
+t
+        * reverse = 0 dollar
+        * 0 to 1 = 1 dollar
+        * */
 
 
-        int test = sc.nextInt();
-        while(test-- > 0){
+       int test = sc.nextInt();
+       while(test-- > 0){
 
-            int n = sc.nextInt();
-            int[] ar = new int[n];
+           int n = sc.nextInt();
+           String s = sc.next();
 
-            for(int i = 0; i < n; i++)
-                ar[i] = sc.nextInt();
+//            StringBuilder first = new StringBuilder();
+//            StringBuilder sec = new StringBuilder();
 
-            for(int i : ar){
-                st.append(n - i + 1).append(" ");
-            }
-            st.append("\n");
+           int mid = n % 2 == 0? n/2 : n/2 + 1;
 
-        }
+           int count = 0;
+           for(int i = 0; i < n; i++){
+               if(s.charAt(i) == '0'){
+                   count++;
+               }
+           }
 
-        System.out.println(st);
+           if(count % 2 == 1){
+               st.append(count != 1? "ALICE\n" : "BOB\n");
+           }
+           else
+               st.append("BOB\n");
+
+
+       }
+
+       System.out.println(st);
 
 
 
     }
+
+
+
+
+
 
 
     //METHODS
