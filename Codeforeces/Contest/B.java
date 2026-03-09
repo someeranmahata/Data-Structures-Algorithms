@@ -20,60 +20,35 @@ public class B{
         while(test-- > 0){
 
             int n = sc.nextInt();
+            int m = sc.nextInt();
+            int l = sc.nextInt();
 
-            String s = sc.next();
+            int[] ar = new int[n];
 
-            if(s.charAt(0) == 'b' && n % 2 != 0){
-                st.append("NO").append("\n");
-                continue;
+            for(int i = 0; i < n; i++){
+                ar[i] = sc.nextInt();
             }
 
-            StringBuilder temp = new StringBuilder();
+            long org = 0;
+            long prev = 0;
+            long max = 0;
 
-            for(int i = 1; i <= n; i++)
-                temp.append(i%2 == 0? 'b' : 'a');
+            int j = 0;
 
-            int l = 0;
-            int r = n - 1;
-            boolean flag = true;
+            int maxind = 0;
+            int k = 0;
 
-            for(int i = 0; i < n && flag; i++){
-                int count = 0;
-                while(i < n && s.charAt(i) == '?'){
-                    count++;
-                    i++;
-                }
-                if(i >= n)
-                    break;
-                if(count == 0){
-                    if(s.charAt(i) == temp.charAt(l))
-                        l++;
-                    else if(s.charAt(i) == temp.charAt(r))
-                        r--;
-                    else
-                        flag = !flag;
+            ArrayList<Integer> list = new ArrayList<>();
 
-                }
-                else{
-                    if(s.charAt(i) == temp.charAt(l)){
-                        r -= count;
-                        l++;
-                    }
+            for(int i = 1; i <= l && j != n; i++){
 
-                    else if(s.charAt(i) == temp.charAt(r)){
-                        r--;
-                        l += count;
-                    }
 
-                    else{
-                        if(count % 2 == 0)
-                            flag = false;
-                        else
-                            l += count;
-                    }
-                }
+
             }
-            st.append(flag? "YES" : "NO").append("\n");
+
+
+            org += (max - prev);
+            st.append(org + "\n");
 
 
 

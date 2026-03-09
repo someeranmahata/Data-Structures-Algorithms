@@ -1,4 +1,5 @@
 
+import java.awt.datatransfer.StringSelection;
 import java.util.*;
 import java.lang.*;
 import java.io.*;
@@ -16,50 +17,103 @@ public class Solution{
         StringBuilder st = new StringBuilder();
 
         /*
-        * game ends when all the character in the string becomes  1
-        * cos
-t
-        * reverse = 0 dollar
-        * 0 to 1 = 1 dollar
-        * */
+         * add all those tile which can reach the drain by moving left, right, and down
+         * find left and round next maximum height dirt to a column
+         * */
+
+        int mod = 1_000_000_007;
+
+        int test = sc.nextInt();
+        while(test-- > 0){
+
+            int n = sc.nextInt();
+            long h = sc.nextLong();
+
+            long[] ar = new long[n];
+
+            for(int i = 0; i < n; i++){
+                ar[i] = sc.nextLong();
+            }
+            long[] leftsum = new long[n];
+            long[] rightsum = new long[n];
 
 
-       int test = sc.nextInt();
-       while(test-- > 0){
+            //adding left part
+            for(int i = 0; i < n; i++){
+                int j = i;
+                long max = ar[i];
+                long cap = 0;
 
-           int n = sc.nextInt();
-           String s = sc.next();
+                while(j >= 0 && ar[j] >= max){
 
-//            StringBuilder first = new StringBuilder();
-//            StringBuilder sec = new StringBuilder();
+                    cap +=(h - ar[j]);
+                    max = Math.max(max, ar[j]);
+                    j--;
+                }
+                while(j != -1){
+                    if(ar[j] > max){
+                        cap += (h - ar[j]);
+                    }
+                    else{
+                        cap += (h - max);
+                    }
+                    j--;
+                }
+                leftsum[i] = cap;
+            }
+            //adding right part
+            for(int i = 0; i < n; i++){
+                int j = i;
+                long max = ar[i];
+                long cap = 0;
 
-           int mid = n % 2 == 0? n/2 : n/2 + 1;
+                while(j < n && ar[j] >= max){
 
-           int count = 0;
-           for(int i = 0; i < n; i++){
-               if(s.charAt(i) == '0'){
-                   count++;
-               }
-           }
+                    cap +=(h - ar[j]);
+                    max = Math.max(max, ar[j]);
+                    j++;
+                }
+                while(j != n){
+                    if(ar[j] > max){
+                        cap += (h - ar[j]);
+                    }
+                    else{
+                        cap += (h - max);
+                    }
 
-           if(count % 2 == 1){
-               st.append(count != 1? "ALICE\n" : "BOB\n");
-           }
-           else
-               st.append("BOB\n");
+                    j++;
+                }
+                rightsum[i] = cap;
+            }
+            for(int i = n - 2; i >= 0; i--){
+                rightsum[i] = Math.max(rightsum[i], rightsum[i + 1]);
+            }
+
+            long ans = 0;
+
+            for(int i = 0; i < n; i++){
+                long left = leftsum[i];
+                int j = i + 1;
+                long max = ar[i];
+                while(j < n && ar[j] >= max){
+                    left += (h - ar[j]);
+                    max = Math.max(ar[j], max);
+                    j++;
+                }
+                if(j != n){
+                    left += rightsum[j];
+                }
+                ans = Math.max(left, ans);
+            }
+
+            st.append(ans).append("\n");
 
 
-       }
+        }
 
-       System.out.println(st);
-
-
+        System.out.println(st);
 
     }
-
-
-
-
 
 
 
