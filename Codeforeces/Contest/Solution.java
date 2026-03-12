@@ -24,94 +24,46 @@ public class Solution{
         int mod = 1_000_000_007;
 
         int test = sc.nextInt();
-        while(test-- > 0){
+        for(int tt = 1; tt <= test; tt++){
 
             int n = sc.nextInt();
             long h = sc.nextLong();
 
             long[] ar = new long[n];
+            for(int i = 0; i < n; i++)
+                ar[i] = sc.nextInt();
+
+            long[][] dp = new long[n][n];
 
             for(int i = 0; i < n; i++){
-                ar[i] = sc.nextLong();
-            }
-            long[] leftsum = new long[n];
-            long[] rightsum = new long[n];
-
-
-            //adding left part
-            for(int i = 0; i < n; i++){
-                int j = i;
+                dp[i][i] = h - ar[i];
+                //left part
                 long max = ar[i];
-                long cap = 0;
-
-                while(j >= 0 && ar[j] >= max){
-
-                    cap +=(h - ar[j]);
+                for(int j = i - 1; j >= 0; j--){
                     max = Math.max(max, ar[j]);
-                    j--;
+                    dp[i][j] = dp[i][j + 1] + (h - max);
                 }
-                while(j != -1){
-                    if(ar[j] > max){
-                        cap += (h - ar[j]);
-                    }
-                    else{
-                        cap += (h - max);
-                    }
-                    j--;
-                }
-                leftsum[i] = cap;
-            }
-            //adding right part
-            for(int i = 0; i < n; i++){
-                int j = i;
-                long max = ar[i];
-                long cap = 0;
 
-                while(j < n && ar[j] >= max){
-
-                    cap +=(h - ar[j]);
+                //right part
+                max = ar[i];
+                for(int j = i + 1; j < n; j++){
                     max = Math.max(max, ar[j]);
-                    j++;
+                    dp[i][j] = dp[i][j - 1] + (h - max);
                 }
-                while(j != n){
-                    if(ar[j] > max){
-                        cap += (h - ar[j]);
-                    }
-                    else{
-                        cap += (h - max);
-                    }
 
-                    j++;
-                }
-                rightsum[i] = cap;
-            }
-            for(int i = n - 2; i >= 0; i--){
-                rightsum[i] = Math.max(rightsum[i], rightsum[i + 1]);
             }
 
             long ans = 0;
+            for(int i = 2; i < n; i++){
 
-            for(int i = 0; i < n; i++){
-                long left = leftsum[i];
-                int j = i + 1;
-                long max = ar[i];
-                while(j < n && ar[j] >= max){
-                    left += (h - ar[j]);
-                    max = Math.max(ar[j], max);
-                    j++;
-                }
-                if(j != n){
-                    left += rightsum[j];
-                }
-                ans = Math.max(left, ans);
             }
-
-            st.append(ans).append("\n");
+            st.append(ans + "\n");
 
 
         }
 
         System.out.println(st);
+
 
     }
 
