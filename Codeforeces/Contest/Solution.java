@@ -24,46 +24,12 @@ public class Solution{
         int mod = 1_000_000_007;
 
         int test = sc.nextInt();
-        for(int tt = 1; tt <= test; tt++){
+        for(int tt = 1; tt <= test; tt++) {
 
-            int n = sc.nextInt();
-            long h = sc.nextLong();
-
-            long[] ar = new long[n];
-            for(int i = 0; i < n; i++)
-                ar[i] = sc.nextInt();
-
-            long[][] dp = new long[n][n];
-
-            for(int i = 0; i < n; i++){
-                dp[i][i] = h - ar[i];
-                //left part
-                long max = ar[i];
-                for(int j = i - 1; j >= 0; j--){
-                    max = Math.max(max, ar[j]);
-                    dp[i][j] = dp[i][j + 1] + (h - max);
-                }
-
-                //right part
-                max = ar[i];
-                for(int j = i + 1; j < n; j++){
-                    max = Math.max(max, ar[j]);
-                    dp[i][j] = dp[i][j - 1] + (h - max);
-                }
-
-            }
-
-            long ans = 0;
-            for(int i = 2; i < n; i++){
-
-            }
-            st.append(ans + "\n");
 
 
         }
-
         System.out.println(st);
-
 
     }
 
