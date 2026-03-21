@@ -17,22 +17,72 @@ public class Solution{
         StringBuilder st = new StringBuilder();
 
         /*
-         * add all those tile which can reach the drain by moving left, right, and down
-         * find left and round next maximum height dirt to a column
-         * */
+
+         */
 
         int mod = 1_000_000_007;
 
         int test = sc.nextInt();
         for(int tt = 1; tt <= test; tt++) {
 
+            int r = sc.nextInt();
+            int g = sc.nextInt();
+            int b = sc.nextInt();
+
+            PriorityQueue<Map.Entry<Character, Integer>> pq =
+                    new PriorityQueue<>((a, c) -> c.getValue() - a.getValue());
+
+            if (r > 0) pq.add(new AbstractMap.SimpleEntry<>('R', r));
+            if (g > 0) pq.add(new AbstractMap.SimpleEntry<>('G', g));
+            if (b > 0) pq.add(new AbstractMap.SimpleEntry<>('B', b));
+
+            StringBuilder ans = new StringBuilder();
+
+            while (!pq.isEmpty()) {
+
+                List<Map.Entry<Character, Integer>> temp = new ArrayList<>();
+                boolean placed = false;
+
+                while (!pq.isEmpty()) {
+                    Map.Entry<Character, Integer> curr = pq.poll();
+                    char ch = curr.getKey();
+
+                    int len = ans.length();
+
+                    boolean ok = true;
+
+                    if (len >= 1 && ans.charAt(len - 1) == ch) ok = false;
+
+                    if (len >= 3 && ans.charAt(len - 3) == ch) ok = false;
+
+                    if (ok) {
+                        ans.append(ch);
+                        curr.setValue(curr.getValue() - 1);
+
+                        if (curr.getValue() > 0) temp.add(curr);
+
+                        placed = true;
+                        break;
+                    } else {
+                        temp.add(curr);
+                    }
+                }
+
+                for (Map.Entry<Character, Integer> e : temp) {
+                    pq.add(e);
+                }
+
+                if (!placed) break;
+            }
+
+            st.append(ans).append("\n");
+
 
 
         }
+
         System.out.println(st);
-
     }
-
 
 
     //METHODS
@@ -56,17 +106,7 @@ public class Solution{
         }
         return a;
     }
-    static long gcdList(long[] ar){
-        if(ar.length == 1)
-            return ar[0];
 
-        Arrays.sort(ar);
-        long cur = ar[ar.length - 1];
-        for(int i = ar.length - 2; i >= 1 && cur != 1; i--){
-            cur = gcd(ar[i], cur);
-        }
-        return cur;
-    }
 
     static long lcm(long a, long b) {
         return a / gcd(a, b) * b;
@@ -92,39 +132,6 @@ public class Solution{
                 return false;
         }
         return true;
-    }
-
-    static int binarySearch(int[] ar, int target){
-        if(ar[target] != 0)
-            return target;
-        int left = 0, right = ar.length - 1;
-        int ind = -1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-
-            if (ar[mid] < target){
-                left = mid + 1;
-                if(ar[mid] != 0)
-                    ind = Math.max(ind, mid);
-            }
-            else
-                right = mid - 1;
-
-        }
-        return ind;
-    }
-    static StringBuilder testcaseGenerator(int n, long bound){
-        StringBuilder st = new StringBuilder();
-        Random rand = new Random();
-
-        for(int i = 0; i < n; i++){
-            if(i == n - 1){
-                st.append(rand.nextLong(bound));
-                continue;
-            }
-            st.append(rand.nextLong(bound) + ", ");
-        }
-        return st;
     }
 
     static class FastScanner {
