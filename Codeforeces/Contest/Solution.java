@@ -22,66 +22,15 @@ public class Solution{
 
         int mod = 1_000_000_007;
 
-        int test = sc.nextInt();
-        for(int tt = 1; tt <= test; tt++) {
-
-            int r = sc.nextInt();
-            int g = sc.nextInt();
-            int b = sc.nextInt();
-
-            PriorityQueue<Map.Entry<Character, Integer>> pq =
-                    new PriorityQueue<>((a, c) -> c.getValue() - a.getValue());
-
-            if (r > 0) pq.add(new AbstractMap.SimpleEntry<>('R', r));
-            if (g > 0) pq.add(new AbstractMap.SimpleEntry<>('G', g));
-            if (b > 0) pq.add(new AbstractMap.SimpleEntry<>('B', b));
-
-            StringBuilder ans = new StringBuilder();
-
-            while (!pq.isEmpty()) {
-
-                List<Map.Entry<Character, Integer>> temp = new ArrayList<>();
-                boolean placed = false;
-
-                while (!pq.isEmpty()) {
-                    Map.Entry<Character, Integer> curr = pq.poll();
-                    char ch = curr.getKey();
-
-                    int len = ans.length();
-
-                    boolean ok = true;
-
-                    if (len >= 1 && ans.charAt(len - 1) == ch) ok = false;
-
-                    if (len >= 3 && ans.charAt(len - 3) == ch) ok = false;
-
-                    if (ok) {
-                        ans.append(ch);
-                        curr.setValue(curr.getValue() - 1);
-
-                        if (curr.getValue() > 0) temp.add(curr);
-
-                        placed = true;
-                        break;
-                    } else {
-                        temp.add(curr);
-                    }
-                }
-
-                for (Map.Entry<Character, Integer> e : temp) {
-                    pq.add(e);
-                }
-
-                if (!placed) break;
-            }
-
-            st.append(ans).append("\n");
-
-
-
-        }
+//        int test = sc.nextInt();
+//        for(int tt = 1; tt <= test; tt++) {
+//
+//
+//
+//        }
 
         System.out.println(st);
+
     }
 
 
