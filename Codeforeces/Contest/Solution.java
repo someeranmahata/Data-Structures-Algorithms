@@ -22,12 +22,12 @@ public class Solution{
 
         int mod = 1_000_000_007;
 
-//        int test = sc.nextInt();
-//        for(int tt = 1; tt <= test; tt++) {
-//
-//
-//
-//        }
+       int test = sc.nextInt();
+       for(int tt = 1; tt <= test; tt++) {
+
+
+
+       }
 
         System.out.println(st);
 
