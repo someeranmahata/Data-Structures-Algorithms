@@ -1,4 +1,3 @@
-
 import java.awt.datatransfer.StringSelection;
 import java.util.*;
 import java.lang.*;
@@ -11,7 +10,8 @@ public class Solution{
     static int mod = 1_000_000_007;
     // GRAY CODE = i ^ (i >> 1)
     // way to find whether a number is power of 2 (n & (n - 1)) == 0
-
+    static HashMap<Integer, String> map = new HashMap<>();
+    
     public static void main(String[] args) throws java.lang.Exception{
         Scanner sc = new Scanner(System.in);
         StringBuilder st = new StringBuilder();
@@ -20,18 +20,46 @@ public class Solution{
 
          */
 
-        int mod = 1_000_000_007;
+        int test = sc.nextInt();
+        for(int tt = 1; tt <= test; tt++) {
 
-       int test = sc.nextInt();
-       for(int tt = 1; tt <= test; tt++) {
+            int n = sc.nextInt();
+            HashMap<Long, List<Integer>> map = new HashMap<>();
+
+            long ans = 0;
+            for(int i = 1; i <= n; i++){
+                long num  = sc.nextLong();
+                if(!map.containsKey(num)){
+                    List<Integer> list = map.get(num);
+                    list.add(i);
+                    map.put(num, list);
+                }
+                else{
+                    List<Integer> list = new ArrayList<>();
+                    list.add(i);
+                    map.put(num, list);
+                }
+                for(int j = 1; j < i; i++){
+                    if(num - j < 1)
+                        break;
+                    if(map.containsKey(num - j)){
+                        if(map.get(num - j).contains(i - j))
+                            ans++;
+                    }
+                }
+            }
+
+            st.append(ans).append("\n");
 
 
-
-       }
+        }
 
         System.out.println(st);
 
     }
+
+    
+    
 
 
     //METHODS
