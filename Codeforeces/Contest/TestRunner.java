@@ -40,7 +40,7 @@ public class TestRunner {
         try {
             List<TestCase> testCases = readTestCases("TestPassCheck.txt");
             if (testCases.isEmpty()) {
-                System.out.println("No test cases found in testcases.txt");
+                System.out.println("No test cases found in TestPassCheck.txt");
                 return;
             }
 
