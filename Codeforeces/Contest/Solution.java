@@ -14,14 +14,18 @@ public class Solution{
         StringBuilder st = new StringBuilder();
     	Scanner sc = new Scanner(System.in);
         /*
-        Aj - Ai = j - i
          */
 
-        int test = sc.nextint();
-        for(int tt = 1; tt <= test; tt++) {
+        int test = sc.nextInt();
+        while(test-- > 0){
 
-            System.out.println("Hey");
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
 
+            int ans = (a + b + c)/3;
+            ans += (a + b + c)%3;
+            st.append(ans + "\n");
         }
 
 
