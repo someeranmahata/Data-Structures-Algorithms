@@ -1,6 +1,3 @@
-import java.util.*;
-
-class Graph{
 
     /*
      5 7
@@ -11,7 +8,21 @@ class Graph{
     3 4 5
     3 5 6
     4 5 7
+
+ 5 8
+1 2 1
+1 3 2
+2 3 1
+2 5 3
+2 4 8
+3 4 3
+3 5 11
+4 5 8
      */
+
+import java.util.*;
+
+class Graph{
     
     List<LinkedList<Edge>> adjList = new ArrayList<>();
     List<Edge> edgeList = new ArrayList<>();
@@ -150,8 +161,6 @@ class Graph{
 
         }
 
-
-
     }
     void dijkstra(int vertex){
 
@@ -183,7 +192,7 @@ class Graph{
             int u = node.val;
             if(visit[u])    continue;
             
-            System.out.println(node);
+            System.out.println(vertex + "-" + node.val + ", wt : " + node.wt);
 
             visit[u] = true;
             for(Edge edge : adjList.get(u)){    //adjlist of vertex u
