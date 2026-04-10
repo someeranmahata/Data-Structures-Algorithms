@@ -17,23 +17,6 @@ class Main{
          maximum number of unique walls taht can be destroyed by the robots
          */
 
-       
-        int lim = 0;
-        for(int i : walls)
-            lim = Math.max(lim, i);
-
-        int[] mark = new int[lim + 1];  //mark whether the wall is destroyed or not
-        
-        HashMap<Integer, Integer> map = new HashMap<>();
-
-        for(int i : walls)
-            mark[i]++;
-
-         for(int i = 0; i < robots.length; i++)
-             map.put(robots[i], distance[i]);
-
-
-
 
 
 

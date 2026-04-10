@@ -8,24 +8,25 @@ public class Solution{
     static int mod = 1_000_000_007;
 
     // GRAY CODE = i ^ (i >> 1)
-    // way to find whether a number is power of 2 (n & (n - 1)) == 0
 
     public static void main(String[] args) throws java.lang.Exception{
         StringBuilder st = new StringBuilder();
     	Scanner sc = new Scanner(System.in);
         /*
+         x,y,z
+         Ax = Ay - Az
+         output format
+            number of op
+             then indices x y z
+         resultant array shhould be in increasing  order
+
          */
 
         int test = sc.nextInt();
-        while(test-- > 0){
+        for(int tt = 1; tt<= test; tt++){
 
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            int c = sc.nextInt();
 
-            int ans = (a + b + c)/3;
-            ans += (a + b + c)%3;
-            st.append(ans + "\n");
+
         }
 
 
