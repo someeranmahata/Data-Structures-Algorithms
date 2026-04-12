@@ -6,20 +6,29 @@ class Main{
         Scanner sc = new Scanner(System.in);
         StringBuilder st = new StringBuilder();
         
+        int n = sc.nextInt();
+        long k = sc.nextLong();
+
+        long[] ar = new long[n + 1];
+        
+        for(int i = 0; i <= n ;i++)
+            ar[i] = sc.nextLong();
+
+        int prev = 0;
+        for(int i = 0; i <= n; i++){
+           // System.out.println(prev + " " + i);
+           // System.out.println(Math.abs(ar[prev] - ar[i]));
+            //System.out.println(Math.abs(ar[prev] - ar[i]) >= k);
+
+            if(Math.abs(ar[i] - ar[prev]) >= k){
+                st.append(prev + " " + ar[prev] + "\n");
+                prev = i;
+            }
+        }
+        if(prev == n)
+            st.append(prev + " " + ar[prev] + "\n");
+        System.out.println(st);
         
 
     }
-    int maxWalls(int[] robots, int[] distance, int[] walls) {
-
-        /*
-         robots and the walls can be placed in the same palce
-         bullet can't pass across a robot but can cross across the walls upto it's range
-         maximum number of unique walls taht can be destroyed by the robots
-         */
-
-
-
-
-    }
-
 }
