@@ -11,38 +11,18 @@ public class Solution{
         StringBuilder st = new StringBuilder();
     	Scanner sc = new Scanner(System.in);
         /*
-         * Solution with O(n)?
          */
 
         int test = sc.nextInt();
-        for(int tt = 1; tt<= test; tt++){
-
-            int n = sc.nextInt();
-            long[] ar = new long[n];
-            for(int i = 0; i < n; i++)
-                ar[i] = sc.nextLong();
-            
-            Set<Long> set = new HashSet<>();
-            set.add(0l);
-            long sum = 0;
-            boolean flag = false;
-            for(int i = 0; i < n && !flag; i++){
-                sum = (i % 2 == 0)? sum - ar[i] : sum + ar[i];
-                if(set.contains(sum))
-                    flag = true;
-                set.add(sum);
-            }
-            st.append(flag? "YES\n" : "NO\n");
+        while(test-- > 0){
+        
 
         }
-
-
+        
         System.out.println(st);
 
 
     }
-
-
 
     //METHODS
 
