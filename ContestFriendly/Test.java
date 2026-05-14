@@ -1,12 +1,11 @@
 import java.util.*;
 import java.io.*;
 
-public class Test{
-    
-    public static void main(String[] args) throws Exception{
-        File file = new File("input.txt");
-        Scanner sc = new Scanner(file);
-        long tc = 1;
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(new File("input.txt"));
+        int tc = 1;
 
         while (sc.hasNextLine()) {
 
@@ -21,24 +20,44 @@ public class Test{
 
             String ans = Main.solve(new Scanner(inputBlock.toString()));
 
-            StringBuilder output = new StringBuilder();
+            Scanner ansSc = new Scanner(ans);
+
+            boolean passed = true;
+            int lineNum = 1;
+
             while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                if (line.trim().isEmpty()) break;
-                output.append(line).append("\n");
+                String expLine = sc.nextLine();
+
+                if (expLine.trim().isEmpty()) break;
+
+                String ansLine = ansSc.hasNextLine() ? ansSc.nextLine() : "";
+
+                if (!ansLine.trim().equals(expLine.trim())) {
+                    System.out.println("Test Case " + tc + " FAILED at line " + lineNum);
+                    System.out.println("Got: " + ansLine);
+                    System.out.println("Expected: " + expLine);
+                    passed = false;
+                    break;
+                }
+                lineNum++;
             }
 
-            if (ans.trim().equals(output.toString().trim()))
-                System.out.println("Test Case " + tc++ + " Passed");
-            else {
-                System.out.println("Test Case " + tc++ + " Failed");
-                System.out.println("Got : " + "\n" + ans.trim());
-
-                System.out.println("Expected : " + "\n" + output.toString().trim());
+            while (passed && ansSc.hasNextLine()) {
+                if (!ansSc.nextLine().trim().isEmpty()) {
+                    System.out.println("Test Case " + tc + " FAILED (extra output)");
+                    passed = false;
+                    break;
+                }
             }
+
+            if (passed) {
+                System.out.println("Test Case " + tc + " PASSED");
+            }
+
             System.out.println();
-        }    
+            tc++;
+        }
 
+        sc.close();
     }
-
 }

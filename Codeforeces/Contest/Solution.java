@@ -15,8 +15,9 @@ public class Solution{
 
         int test = sc.nextInt();
         while(test-- > 0){
-        
-
+            
+            
+            
         }
         
         System.out.println(st);
